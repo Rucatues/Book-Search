@@ -1,8 +1,8 @@
 const express = require('express');
-// / Import the ApolloServer class
+// / Import the ApolloServer class, this is the library we will use to make it easier for our Node server to connect to our Apollo server. 
 const { ApolloServer } = require('apollo-server-express');
 
-// Import the two parts of a GraphQL schema
+// Import the two parts of a GraphQL schema- these are the schemas/controllers for Apollo and we are bringing them in so we can use them when starting our Apollo server
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
@@ -19,6 +19,8 @@ app.use(express.json());
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
+  // first, instantiate the Apollo server, then start it
+  // the entire express app actually sits inside of it as middleware
   await server.start();
   server.applyMiddleware({ app });
 
@@ -30,5 +32,5 @@ const startApolloServer = async () => {
   })
 };
 
-// Call the async function to start the server
+// Call the async function to start the server!
 startApolloServer();
